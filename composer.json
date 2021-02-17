@@ -1,0 +1,54 @@
+{
+    "name": "ryanlholt/infused",
+    "description": "Infusionsoft companion for Laravel",
+    "keywords": [
+        "ryanlholt",
+        "infused"
+    ],
+    "homepage": "https://github.com/ryanlholt/infused",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ryan Holt",
+            "email": "ryanlholt.88@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RyanLHolt\\Infused\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RyanLHolt\\Infused\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RyanLHolt\\Infused\\InfusedServiceProvider"
+            ],
+            "aliases": {
+                "Infused": "RyanLHolt\\Infused\\InfusedFacade"
+            }
+        }
+    }
+}
