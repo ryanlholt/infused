@@ -19,6 +19,8 @@ class InfusedServiceProvider extends ServiceProvider
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('infused.php'),
@@ -42,6 +44,14 @@ class InfusedServiceProvider extends ServiceProvider
             // Registering package commands.
             // $this->commands([]);
         }
+
+        // WIP: Attach Laravel Logger service to Infusionsoft instance
+        $this->app->resolving(Infusionsoft::class, function ($infusionsoft, $app) {
+            // Called when container resolves objects of type "Infusionsoft"
+            $logger = $app->make(LogManager::class);
+
+            $infusionsoft->setHttpLogAdapter($logger);
+        });
     }
 
     /**
