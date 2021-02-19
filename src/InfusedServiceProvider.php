@@ -2,7 +2,9 @@
 
 namespace RyanLHolt\Infused;
 
+use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
+
 
 class InfusedServiceProvider extends ServiceProvider
 {
@@ -45,8 +47,8 @@ class InfusedServiceProvider extends ServiceProvider
             // $this->commands([]);
         }
 
-        // WIP: Attach Laravel Logger service to Infusionsoft instance
-        $this->app->resolving(Infusionsoft::class, function ($infusionsoft, $app) {
+        // Pass the LogManager from the Log provider into infusionsoft
+        $this->app->resolving('infusionsoft', function ($infusionsoft, $app) {
             // Called when container resolves objects of type "Infusionsoft"
             $logger = $app->make(LogManager::class);
 
@@ -63,8 +65,8 @@ class InfusedServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'infused');
 
         // Register the main class to use with the facade
-        $this->app->singleton('infused', function () {
-            return new Infused;
+        $this->app->singleton('infused', function ($app) {
+            return new Infused($app);
         });
     }
 }

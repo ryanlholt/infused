@@ -4,5 +4,16 @@ namespace RyanLHolt\Infused;
 
 class Infused
 {
-    // Build your next great package.
+    protected $app;
+    protected $infusionsoft;
+
+    public function __construct($app){
+        $this->app = $app;
+
+        $this->infusionsoft = $this->app->make('infusionsoft');
+    }
+
+    public function updateToken($token){
+        dd($token);
+    }
 }
