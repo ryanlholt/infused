@@ -18,7 +18,7 @@ class InfusedServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -27,6 +27,10 @@ class InfusedServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('infused.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . 'create_infusionsoft_tokens_table.php'),
+            ], 'migrations');
 
             // Publishing the views.
             /*$this->publishes([
