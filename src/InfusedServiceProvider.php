@@ -18,9 +18,7 @@ class InfusedServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
-         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         if ($this->app->runningInConsole()) {
@@ -29,7 +27,7 @@ class InfusedServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . 'create_infusionsoft_tokens_table.php'),
+                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_infusionsoft_tokens_table.php'),
             ], 'migrations');
 
             // Publishing the views.
