@@ -5,7 +5,6 @@ namespace RyanLHolt\Infused;
 use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
 
-
 class InfusedServiceProvider extends ServiceProvider
 {
     /**
@@ -27,7 +26,7 @@ class InfusedServiceProvider extends ServiceProvider
             ], 'config');
 
             $this->publishes([
-                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_infusionsoft_tokens_table.php'),
+                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_infusionsoft_tokens_table.php'),
             ], 'migrations');
 
             // Publishing the views.

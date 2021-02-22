@@ -10,7 +10,7 @@ class InfusionsoftController extends Controller
     public function storeToken(Request $request)
     {
         if (! $request->isMethod('get') || ! $request->has('code')) {
-            abort(400, "Bad Request");
+            abort(400, 'Bad Request');
         }
 
         if (! app('infusionsoft')->getToken()) {

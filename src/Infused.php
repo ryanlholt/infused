@@ -20,7 +20,6 @@ class Infused
 
     public function updateToken($token): bool
     {
-
         $tokenModel = InfusionsoftToken::firstOrNew([
             'user_id' => auth()->id(),
         ]);
@@ -53,6 +52,7 @@ class Infused
             return $this->updateToken($token);
         } catch (InfusionsoftException $e) {
             Log::error('Error refreshing token: '.$e->getMessage());
+
             return false;
         }
     }
