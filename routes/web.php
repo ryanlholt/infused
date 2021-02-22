@@ -1,7 +1,7 @@
 <?php
 
-use RyanLHolt\Infused\Http\Controllers\InfusionsoftController;
 use Illuminate\Support\Facades\Route;
+use RyanLHolt\Infused\Http\Controllers\InfusionsoftController;
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/infusionsoft/callback', [InfusionsoftController::class, 'storeToken']);

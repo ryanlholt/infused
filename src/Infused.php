@@ -11,21 +11,23 @@ class Infused
     protected $app;
     protected $infusionsoft;
 
-    public function __construct($app){
+    public function __construct($app)
+    {
         $this->app = $app;
 
         $this->infusionsoft = $this->app->make('infusionsoft');
     }
 
-    public function updateToken($token) : bool {
+    public function updateToken($token): bool
+    {
 
         $tokenModel = InfusionsoftToken::firstOrNew([
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
 
         $tokenExtraInfo = $token->getExtraInfo();
 
-        $tokenAppId = explode("|", $tokenExtraInfo['scope']);
+        $tokenAppId = explode('|', $tokenExtraInfo['scope']);
         $tokenAppId = $tokenAppId[1];
 
         $tokenModel->user_id = auth()->id();
@@ -41,15 +43,16 @@ class Infused
         return true;
     }
 
-    public function getAccessToken($code = null) : bool {
-        try{
+    public function getAccessToken($code = null): bool
+    {
+        try {
             $token = (isset($code))
                 ? $this->infusionsoft->requestAccessToken($code)
                 : $this->infusionsoft->refreshAccessToken();
 
             return $this->updateToken($token);
-        } catch(InfusionsoftException $e){
-            Log::error("Error refreshing token: " . $e->getMessage());
+        } catch (InfusionsoftException $e) {
+            Log::error('Error refreshing token: '.$e->getMessage());
             return false;
         }
     }
