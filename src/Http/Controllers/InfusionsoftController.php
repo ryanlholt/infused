@@ -17,8 +17,12 @@ class InfusionsoftController extends Controller
             ? app('infused')->getAccessToken()
             : app('infused')->getAccessToken($request->query('code'));
 
-        $request->session()->flash('status', $result ? 'Infusionsoft Token was successfully set!' : 'Error authenticating Infusionsoft');
+        $status = $result ? 'Infusionsoft Token was successfully set!' : 'Error authenticating Infusionsoft';
 
-        redirect(config('infused.infused_auth_url'));
+        return redirect(config('infused.infused_auth_url'))->with('infused_status', $status);
+    }
+
+    public function settings(){
+        return view('infused::settings');
     }
 }

@@ -16,7 +16,7 @@ class InfusedServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
@@ -30,9 +30,9 @@ class InfusedServiceProvider extends ServiceProvider
             ], 'migrations');
 
             // Publishing the views.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/infused'),
-            ], 'views');*/
+            ], 'views');
 
             // Publishing assets.
             /*$this->publishes([
@@ -50,7 +50,7 @@ class InfusedServiceProvider extends ServiceProvider
 
         // Pass the LogManager from the Log provider into infusionsoft
         $this->app->resolving('infusionsoft', function ($infusionsoft, $app) {
-            // Called when container resolves objects of type "Infusionsoft"
+            // Called when container resolves Infusionsoft objects
             $logger = $app->make(LogManager::class);
 
             $infusionsoft->setHttpLogAdapter($logger);
