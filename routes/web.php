@@ -1,16 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use RyanLHolt\Infused\Http\Controllers\InfusionsoftController;
 
-
-Route::get('/infusionsoft/callback', function(Request $request){
-    if($request->isMethod('get') && $request->has('code'))
-    {
-        if (!app('infusionsoft')->getToken())
-        {
-            $token = app('infusionsoft')->requestAccessToken($request->query('code'));
-
-            dd($token);
-        }
-    }
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/infusionsoft/callback', [InfusionsoftController::class, 'storeToken']);
+    Route::get('/infused', [InfusionsoftController::class, 'settings']);
 });
