@@ -18,7 +18,7 @@ class Infused
         $this->infusionsoft = $this->app->make('infusionsoft');
     }
 
-    public function updateToken($token): bool
+    public function updateToken($token)
     {
         $tokenModel = InfusionsoftToken::firstOrNew([
             'user_id' => auth()->id(),
@@ -38,8 +38,6 @@ class Infused
         $tokenModel->serialized_token = serialize($token);
 
         $tokenModel->save();
-
-        return true;
     }
 
     public function getAccessToken($code = null): bool
@@ -49,7 +47,9 @@ class Infused
                 ? $this->infusionsoft->requestAccessToken($code)
                 : $this->infusionsoft->refreshAccessToken();
 
-            return $this->updateToken($token);
+            $this->updateToken($token);
+
+            return true;
         } catch (InfusionsoftException $e) {
             Log::error('Error refreshing token: '.$e->getMessage());
 
