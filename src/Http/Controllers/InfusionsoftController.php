@@ -22,7 +22,8 @@ class InfusionsoftController extends Controller
         return redirect(config('infused.infused_auth_url'))->with('infused_status', $status);
     }
 
-    public function settings(){
+    public function settings()
+    {
         return view('infused::settings');
     }
 }
