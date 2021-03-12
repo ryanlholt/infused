@@ -1,6 +1,7 @@
 # Very short description of the package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
+[![Build Status](https://github.styleci.io/repos/7548986/shield)](https://github.styleci.io/repos/7548986)
 [![Build Status](https://img.shields.io/travis/ryanlholt/infused/master.svg?style=flat-square)](https://travis-ci.org/ryanlholt/infused)
 [![Quality Score](https://img.shields.io/scrutinizer/g/ryanlholt/infused.svg?style=flat-square)](https://scrutinizer-ci.com/g/ryanlholt/infused)
 [![Total Downloads](https://img.shields.io/packagist/dt/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
