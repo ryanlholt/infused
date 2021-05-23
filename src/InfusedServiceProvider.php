@@ -12,40 +12,10 @@ class InfusedServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->handlePackageAssets();
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('infused.php'),
-            ], 'config');
-
-            $this->publishes([
-                __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_infusionsoft_tokens_table.php'),
-            ], 'migrations');
-
-            // Publishing the views.
-            $this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/infused'),
-            ], 'views');
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/infused'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/infused'),
-            ], 'lang');*/
-
-            // Registering package commands.
-            // $this->commands([]);
+            $this->publishPackageAssets();
         }
 
         // Pass the LogManager from the Log provider into infusionsoft
@@ -69,5 +39,45 @@ class InfusedServiceProvider extends ServiceProvider
         $this->app->singleton('infused', function ($app) {
             return new Infused($app);
         });
+    }
+
+    private function publishPackageAssets()
+    {
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('infused.php'),
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/create_infusionsoft_tokens_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_infusionsoft_tokens_table.php'),
+        ], 'migrations');
+
+        // Publishing the views.
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/infused'),
+        ], 'views');
+
+        // Publishing assets.
+        /*$this->publishes([
+            __DIR__.'/../resources/assets' => public_path('vendor/infused'),
+        ], 'assets');*/
+
+        // Publishing the translation files.
+        /*$this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/infused'),
+        ], 'lang');*/
+
+        // Registering package commands.
+        // $this->commands([]);
+    }
+
+    private function handlePackageAssets()
+    {
+        /*
+         * Optional methods to load your package assets
+         */
+        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'infused');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
     }
 }
