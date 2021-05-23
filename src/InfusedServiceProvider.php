@@ -4,6 +4,7 @@ namespace RyanLHolt\Infused;
 
 use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
+use RyanLHolt\Infused\Http\Middleware\CheckValidInfusionsoftToken;
 
 class InfusedServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,9 @@ class InfusedServiceProvider extends ServiceProvider
 
             $infusionsoft->setHttpLogAdapter($logger);
         });
+
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('infuse', CheckValidInfusionsoftToken::class);
     }
 
     /**
