@@ -15,6 +15,10 @@ return [
     |
     */
 
-    'infused_auth_url' => env('INFUSED_AUTH_URL', env('APP_URL', 'http://localhost').'/infused'),
+    'infusionsoft' => [
+        'clientId' => env('INFUSIONSOFT_CLIENT_ID'),
+        'clientSecret' => env('INFUSIONSOFT_SECRET'),
+        'redirectUri' => env('INFUSIONSOFT_REDIRECT_URL', env('APP_URL', 'http://localhost').'/infused'),
+    ]
 
 ];

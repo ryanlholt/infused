@@ -4,6 +4,8 @@ namespace RyanLHolt\Infused;
 
 use Illuminate\Support\Facades\Log;
 use Infusionsoft\InfusionsoftException;
+use Infusionsoft\Infusionsoft;
+use Illuminate\Log\LogManager;
 use RyanLHolt\Infused\Models\InfusionsoftToken;
 
 class Infused
@@ -15,7 +17,9 @@ class Infused
     {
         $this->app = $app;
 
-        $this->infusionsoft = $this->app->make('infusionsoft');
+        $this->infusionsoft = new Infusionsoft(config('infused.infusionsoft'));
+
+        $this->infusionsoft->setHttpLogAdapter($this->app->make(LogManager::class));
     }
 
     public function updateToken($token)

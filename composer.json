@@ -51,8 +51,7 @@
                 "RyanLHolt\\Infused\\InfusedServiceProvider"
             ],
             "aliases": {
-                "Infused": "RyanLHolt\\Infused\\InfusedFacade",
-                "Infusionsoft": "Infusionsoft\\FrameworkSupport\\Laravel\\InfusionsoftFacade"
+                "Infused": "RyanLHolt\\Infused\\InfusedFacade"
             }
         }
     }

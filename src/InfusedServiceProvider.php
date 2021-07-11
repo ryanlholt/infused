@@ -2,7 +2,6 @@
 
 namespace RyanLHolt\Infused;
 
-use Illuminate\Log\LogManager;
 use Illuminate\Support\ServiceProvider;
 use RyanLHolt\Infused\Http\Middleware\CheckValidInfusionsoftToken;
 
@@ -18,14 +17,6 @@ class InfusedServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishPackageAssets();
         }
-
-        // Pass the LogManager from the Log provider into infusionsoft
-        $this->app->resolving('infusionsoft', function ($infusionsoft, $app) {
-            // Called when container resolves Infusionsoft objects
-            $logger = $app->make(LogManager::class);
-
-            $infusionsoft->setHttpLogAdapter($logger);
-        });
 
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('infuse', CheckValidInfusionsoftToken::class);
