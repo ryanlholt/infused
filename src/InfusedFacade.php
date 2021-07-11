@@ -5,7 +5,7 @@ namespace RyanLHolt\Infused;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \RyanLHolt\Infused\Skeleton\SkeletonClass
+ * @see \RyanLHolt\Infused\Infused
  */
 class InfusedFacade extends Facade
 {
