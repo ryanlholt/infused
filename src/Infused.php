@@ -55,7 +55,7 @@ class Infused
 
             return true;
         } catch (InfusionsoftException $e) {
-            Log::error('Error refreshing token: '.$e->getMessage());
+            Log::error('Error refreshing token: ' . $e->getMessage());
 
             return false;
         }

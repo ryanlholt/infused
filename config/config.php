@@ -18,7 +18,8 @@ return [
     'infusionsoft' => [
         'clientId' => env('INFUSIONSOFT_CLIENT_ID'),
         'clientSecret' => env('INFUSIONSOFT_SECRET'),
-        'redirectUri' => env('INFUSIONSOFT_REDIRECT_URL', env('APP_URL', 'http://localhost').'/infused'),
+        'redirectUri' => env('INFUSIONSOFT_REDIRECT_URL', env('APP_URL', 'http://localhost') . '/infused'),
+        'authorizationRoute' => env('INFUSIONSOFT_AUTH_ROUTE', '/infusionsoft/authorize')
     ]
 
 ];
