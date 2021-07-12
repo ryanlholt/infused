@@ -2,10 +2,10 @@
 
 namespace RyanLHolt\Infused;
 
-use Illuminate\Support\Facades\Log;
-use Infusionsoft\InfusionsoftException;
-use Infusionsoft\Infusionsoft;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Facades\Log;
+use Infusionsoft\Infusionsoft;
+use Infusionsoft\InfusionsoftException;
 use RyanLHolt\Infused\Models\InfusionsoftToken;
 
 class Infused

@@ -11,9 +11,6 @@ class InfusionsoftController extends Controller
 {
     public function finishAuthorize(Request $request)
     {
-        /**
-         * Add in authorize functionality here
-         */
         $currentToken = InfusionsoftToken::where('user_id', Auth::user()->id)->get('serialized_token');
 
         $status = 'Error authorizing Infusionsoft!';
