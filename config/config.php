@@ -21,7 +21,7 @@ return [
         'redirectUri' => env(
             'INFUSIONSOFT_REDIRECT_URL',
             env('APP_URL', 'http://localhost') . '/infusionsoft/authorize'
-        )
+        ),
     ],
-    'infusionsoftSettings' => env('INFUSIONSOFT_SETTINGS_ROUTE', '/infusionsoft/settings')
+    'infusionsoftSettings' => env('INFUSIONSOFT_SETTINGS_ROUTE', '/infusionsoft/settings'),
 ];
