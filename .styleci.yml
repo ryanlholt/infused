@@ -1,4 +1,5 @@
 preset: laravel
 
 disabled:
+  - concat_without_spaces
   - single_class_element_per_statement
