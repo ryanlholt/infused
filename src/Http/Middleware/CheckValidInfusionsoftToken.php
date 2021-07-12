@@ -40,7 +40,7 @@ class CheckValidInfusionsoftToken
             }
         }
 
-        if (!$ifs_token) {
+        if (! $ifs_token) {
             Session::put('infused_ifs_token', $stored_ifs_token);
         }
 
