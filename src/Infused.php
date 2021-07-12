@@ -42,6 +42,8 @@ class Infused
         $tokenModel->serialized_token = serialize($token);
 
         $tokenModel->save();
+
+        return true;
     }
 
     public function getAccessToken($code = null): bool
