@@ -5,7 +5,6 @@ namespace RyanLHolt\Infused\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Infusionsoft\InfusionsoftException;
 use RyanLHolt\Infused\Models\InfusionsoftToken;
 
@@ -20,28 +19,30 @@ class CheckValidInfusionsoftToken
      */
     public function handle(Request $request, Closure $next)
     {
-        $ifs_token = $request->session()->get('infused_ifs_token', false);
+        $sessionToken = $request->session()->get('infused_ifs_token', false);
+        $storedToken = InfusionsoftToken::where('user_id', Auth::user()->id)->query('serialized_token');
 
-        if ($ifs_token) {
-            app('infused')->infusionsoft->setToken($ifs_token);
+        if (! isset($storedToken)) {
+            $request->session()->flash('infused_auth_status', 0);
         }
 
-        $stored_ifs_token = InfusionsoftToken::where('user_id', Auth::user()->id);
+        if ($sessionToken !== $storedToken) {
+            $request->session()->put('infused_ifs_token', $storedToken);
+            app('infused')->infusionsoft()->setToken($storedToken);
 
-        if ($stored_ifs_token !== $ifs_token || $ifs_token->end_of_life < now()) {
-            try {
-                app('infused')->infusionsoft->refreshAccessToken();
-            } catch (InfusionsoftException $e) {
-                $e->getMessage();
-                /**
-                 * @todo: Add in config var for infusionsoft authorization
-                 * route and redirect there.
-                 */
+            $request->session()->flash('infused_auth_status', 1);
+
+            if (app('infused')->infusionsoft()->isTokenExpired()) {
+                try {
+                    app('infused')->infusionsoft()->refreshAccessToken();
+                    app('infused')->updateToken(app('infused')->infusionsoft()->getToken());
+                } catch (InfusionsoftException $e) { // This may end up being an HTTP exception instead
+                    $e->getMessage();
+                    $request->session()->flash('infused_auth_status', 0);
+                }
             }
-        }
-
-        if (! $ifs_token) {
-            Session::put('infused_ifs_token', $stored_ifs_token);
+        } else {
+            $request->session()->flash('infused_auth_status', 1);
         }
 
         return $next($request);
