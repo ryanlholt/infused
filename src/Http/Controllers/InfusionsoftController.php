@@ -22,7 +22,7 @@ class InfusionsoftController extends Controller
 
         $newToken = app('infused')->infusionsoft->requestAccessToken($request->query('code'));
 
-        if ($currentToken !== serialize($newToken) && isset($newToken->getAccessToken())) {
+        if ($currentToken !== serialize($newToken) && null !== $newToken->getAccessToken()) {
             //Token is good, store it
             app('infused')->updateToken($newToken);
 
