@@ -62,4 +62,9 @@ class Infused
             return false;
         }
     }
+
+    public function infusionsoft()
+    {
+        return $this->infusionsoft;
+    }
 }
