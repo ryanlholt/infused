@@ -2,6 +2,7 @@
 
 namespace RyanLHolt\Infused;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use RyanLHolt\Infused\Http\Middleware\CheckValidInfusionsoftToken;
 
