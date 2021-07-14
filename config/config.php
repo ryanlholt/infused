@@ -15,6 +15,8 @@ return [
     |
     */
 
+    'infusionsoftAuthorize' => env('INFUSIONSOFT_AUTHORIZE_ROUTE', '/infusionsoft/authorize'),
+    'infusionsoftSettings' => env('INFUSIONSOFT_SETTINGS_ROUTE', '/infusionsoft/settings'),
     'infusionsoft' => [
         'clientId' => env('INFUSIONSOFT_CLIENT_ID'),
         'clientSecret' => env('INFUSIONSOFT_SECRET'),
@@ -23,5 +25,4 @@ return [
             env('APP_URL', 'http://localhost') . '/infusionsoft/authorize'
         ),
     ],
-    'infusionsoftSettings' => env('INFUSIONSOFT_SETTINGS_ROUTE', '/infusionsoft/settings'),
 ];
