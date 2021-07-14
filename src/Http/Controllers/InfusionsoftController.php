@@ -11,6 +11,7 @@ class InfusionsoftController extends Controller
 {
     public function finishAuthorize(Request $request)
     {
+        dd($request->query('code'));
         $currentToken = InfusionsoftToken::where('user_id', Auth::user()->id)->get('serialized_token');
 
         $status = 'Error authorizing Infusionsoft!';
@@ -20,7 +21,7 @@ class InfusionsoftController extends Controller
                       ->with('infused_status', $status);
         }
 
-        $newToken = app('infused')->infusionsoft->requestAccessToken($request->query('code'));
+        $newToken = app('infused')->infusionsoft()->requestAccessToken($request->query('code'));
 
         if ($currentToken !== serialize($newToken) && null !== $newToken->getAccessToken()) {
             //Token is good, store it
