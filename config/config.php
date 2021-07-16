@@ -24,7 +24,7 @@ return [
         'clientSecret' => env('INFUSIONSOFT_SECRET'),
         'redirectUri' => env(
             'INFUSIONSOFT_REDIRECT_URL',
-            env('APP_URL', 'http://localhost') . '/authorize'
+            env('APP_URL', 'http://localhost') . '/infusionsoft/authorize'
         ),
     ],
 ];
