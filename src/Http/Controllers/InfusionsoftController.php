@@ -26,7 +26,7 @@ class InfusionsoftController extends Controller
             $newToken = app('infused')
                 ->infusionsoft()
                 ->requestAccessToken($request->query('code'));
-        } catch(InfusionsoftException $infusionsoftException) {
+        } catch (InfusionsoftException $infusionsoftException) {
             $exceptionReason = $infusionsoftException . getHelpText();
             app('log')->warning($exceptionReason);
         }
