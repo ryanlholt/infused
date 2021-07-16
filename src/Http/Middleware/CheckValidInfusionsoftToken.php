@@ -20,15 +20,15 @@ class CheckValidInfusionsoftToken
     public function handle(Request $request, Closure $next)
     {
         $sessionToken = $request->session()->get('infused_ifs_token', false);
-        $storedToken = InfusionsoftToken::where('user_id', Auth::user()->id)->query('serialized_token');
+        $storedToken = InfusionsoftToken::where('user_id', Auth::id())->first();
 
         if (! isset($storedToken)) {
             $request->session()->flash('infused_auth_status', 0);
         }
 
-        if ($sessionToken !== $storedToken) {
-            $request->session()->put('infused_ifs_token', $storedToken);
-            app('infused')->infusionsoft()->setToken($storedToken);
+        if (isset($storedToken) && $sessionToken !== $storedToken) {
+            $request->session()->put('infused_ifs_token', $storedToken->serialized_token);
+            app('infused')->infusionsoft()->setToken(unserialize($storedToken->serialized_token));
 
             $request->session()->flash('infused_auth_status', 1);
 
@@ -37,12 +37,12 @@ class CheckValidInfusionsoftToken
                     app('infused')->infusionsoft()->refreshAccessToken();
                     app('infused')->updateToken(app('infused')->infusionsoft()->getToken());
                 } catch (InfusionsoftException $e) { // This may end up being an HTTP exception instead
-                    $e->getMessage();
+                    app('log')->warning($e->getMessage());
                     $request->session()->flash('infused_auth_status', 0);
                 }
             }
         } else {
-            $request->session()->flash('infused_auth_status', 1);
+            $request->session()->flash('infused_auth_status', 0);
         }
 
         return $next($request);
