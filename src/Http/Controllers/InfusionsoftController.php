@@ -17,8 +17,8 @@ class InfusionsoftController extends Controller
         $status = 'Error authorizing Infusionsoft!';
 
         if (! $request->isMethod('get') || ! $request->has('code')) {
-            redirect(route('infused.infusionsoft.settings'))
-                      ->with('infused_status', $status);
+            $request->session()->flash('infused_status', $status);
+            redirect(route('infused.infusionsoft.settings'));
         }
 
         $newToken = null;
@@ -38,7 +38,9 @@ class InfusionsoftController extends Controller
             $status = 'Infusionsoft Token was successfully set!';
         }
 
-        return redirect(route('infused.infusionsoft.settings'))->with('infused_status', $status);
+        $request->session()->flash('infused_status', $status);
+
+        return redirect(route('infused.infusionsoft.settings'));
     }
 
     public function settings()

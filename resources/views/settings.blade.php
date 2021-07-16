@@ -1,5 +1,5 @@
 <h1>Infused Settings</h1>
-
+{{session()->get('infused_status')}}
 @if (session()->exists('infused_auth_status') && session('infused_auth_status') === 1)
     <div class="alert alert-block alert-success flex items-center">
         <p class="text-lg font-bold">Infusionsoft is Authorized!</p>
@@ -13,5 +13,3 @@
         <a href="{{app('infused')->infusionsoft()->getAuthorizationUrl()}}">Re-Authorize</a>
     </div>
 @endif
-
-
