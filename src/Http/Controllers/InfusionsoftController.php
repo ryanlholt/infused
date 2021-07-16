@@ -5,13 +5,14 @@ namespace RyanLHolt\Infused\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Infusionsoft\InfusionsoftException;
 use RyanLHolt\Infused\Models\InfusionsoftToken;
 
 class InfusionsoftController extends Controller
 {
     public function finishAuthorize(Request $request)
     {
-        $currentToken = InfusionsoftToken::where('user_id', Auth::user()->id)->get('serialized_token');
+        $currentToken = InfusionsoftToken::where('user_id', Auth::id())->get('serialized_token');
 
         $status = 'Error authorizing Infusionsoft!';
 
@@ -20,7 +21,15 @@ class InfusionsoftController extends Controller
                       ->with('infused_status', $status);
         }
 
-        $newToken = app('infused')->infusionsoft()->requestAccessToken($request->query('code'));
+        $newToken = null;
+        try {
+            $newToken = app('infused')
+                ->infusionsoft()
+                ->requestAccessToken($request->query('code'));
+        } catch(InfusionsoftException $infusionsoftException) {
+            $exceptionReason = $infusionsoftException . getHelpText();
+            app('log')->warning($exceptionReason);
+        }
 
         if ($currentToken !== serialize($newToken) && null !== $newToken->getAccessToken()) {
             //Token is good, store it

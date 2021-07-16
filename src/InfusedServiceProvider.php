@@ -2,7 +2,7 @@
 
 namespace RyanLHolt\Infused;
 
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use RyanLHolt\Infused\Http\Middleware\CheckValidInfusionsoftToken;
 
@@ -19,8 +19,10 @@ class InfusedServiceProvider extends ServiceProvider
             $this->publishPackageAssets();
         }
 
-        $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('infuse', CheckValidInfusionsoftToken::class);
+        app('router')->aliasMiddleware(
+            'infuse',
+            CheckValidInfusionsoftToken::class
+        );
     }
 
     /**
@@ -68,14 +70,29 @@ class InfusedServiceProvider extends ServiceProvider
         // $this->commands([]);
     }
 
-    private function handlePackageAssets()
+    protected function handlePackageAssets()
     {
-        /*
-         * Optional methods to load your package assets
-         */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'infused');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'infused');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->registerRoutes();
+    }
+
+    protected function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        });
+    }
+
+    /**
+     * @return array
+     */
+    protected function routeConfiguration(): array
+    {
+        return [
+            'prefix' => config('infused.prefix'),
+            'middleware' => config('infused.middleware'),
+        ];
     }
 }
