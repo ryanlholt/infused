@@ -1,13 +1,11 @@
-# Very short description of the package
+# Infused for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
 [![Build Status](https://github.styleci.io/repos/7548986/shield)](https://github.styleci.io/repos/7548986)
 [![Build Status](https://img.shields.io/travis/ryanlholt/infused/master.svg?style=flat-square)](https://travis-ci.org/ryanlholt/infused)
-[![Quality Score](https://img.shields.io/scrutinizer/g/ryanlholt/infused.svg?style=flat-square)](https://scrutinizer-ci.com/g/ryanlholt/infused)
 [![Total Downloads](https://img.shields.io/packagist/dt/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
-
+The goal of this package is to simplify working with the Infusionsoft API from within Laravel. This package adheres to the PSR12 standards.
 ## Installation
 
 You can install the package via composer:
@@ -17,9 +15,9 @@ composer require ryanlholt/infused
 ```
 
 ## Usage
-
+First, have your users navigate to the infusionsoft settings page located at YOUR_APP_URL/infusionsoft/settings. After that, you can use the User's token from the `infusionsoft_tokens` table to make API calls.
 ``` php
-// Usage description here
+$contacts = app('infused')->infusionsoft()->contacts();
 ```
 
 ### Testing
@@ -43,12 +41,7 @@ If you discover any security related issues, please email ryanlholt.88@gmail.com
 ## Credits
 
 - [Ryan Holt](https://github.com/ryanlholt)
-- [All Contributors](../../contributors)
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
