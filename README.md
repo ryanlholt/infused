@@ -1,9 +1,8 @@
 # Infused for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
-[![Build Status](https://github.styleci.io/repos/7548986/shield)](https://github.styleci.io/repos/7548986)
-[![Build Status](https://img.shields.io/travis/ryanlholt/infused/master.svg?style=flat-square)](https://travis-ci.org/ryanlholt/infused)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ryanlholt/infused.svg?style=flat-square&logo=packagist)](https://packagist.org/packages/ryanlholt/infused)
 [![Total Downloads](https://img.shields.io/packagist/dt/ryanlholt/infused.svg?style=flat-square)](https://packagist.org/packages/ryanlholt/infused)
+[![Build Status](https://github.styleci.io/repos/7548986/shield)](https://github.styleci.io/repos/7548986)
 
 The goal of this package is to simplify working with the Infusionsoft API from within Laravel. This package adheres to the PSR12 standards.
 ## Installation
