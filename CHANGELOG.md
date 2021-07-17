@@ -2,6 +2,8 @@
 
 All notable changes to `infused` will be documented in this file
 
-## 1.0.0 - 201X-XX-XX
+## 0.2.0 - 07-17-2021
 
-- initial release
+- Finalize settings page styling
+- Added in middleware to check token validity
+- Many bug fixes
