@@ -2,7 +2,9 @@
 
 namespace RyanLHolt\Infused;
 
+use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\Log;
+use Infusionsoft\Infusionsoft;
 use Infusionsoft\InfusionsoftException;
 use RyanLHolt\Infused\Models\InfusionsoftToken;
 
@@ -15,7 +17,9 @@ class Infused
     {
         $this->app = $app;
 
-        $this->infusionsoft = $this->app->make('infusionsoft');
+        $this->infusionsoft = new Infusionsoft(config('infused.infusionsoft'));
+
+        $this->infusionsoft->setHttpLogAdapter($this->app->make(LogManager::class));
     }
 
     public function updateToken($token)
@@ -38,6 +42,8 @@ class Infused
         $tokenModel->serialized_token = serialize($token);
 
         $tokenModel->save();
+
+        return true;
     }
 
     public function getAccessToken($code = null): bool
@@ -51,9 +57,14 @@ class Infused
 
             return true;
         } catch (InfusionsoftException $e) {
-            Log::error('Error refreshing token: '.$e->getMessage());
+            Log::error('Error refreshing token: ' . $e->getMessage());
 
             return false;
         }
+    }
+
+    public function infusionsoft()
+    {
+        return $this->infusionsoft;
     }
 }

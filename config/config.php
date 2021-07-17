@@ -15,6 +15,16 @@ return [
     |
     */
 
-    'infused_auth_url' => env('INFUSED_AUTH_URL', env('APP_URL', 'http://localhost').'/infused'),
-
+    'prefix' => 'infusionsoft',
+    'middleware' => ['web', 'auth'],
+    'infusionsoftAuthorize' => env('INFUSIONSOFT_AUTHORIZE_ROUTE', '/authorize'),
+    'infusionsoftSettings' => env('INFUSIONSOFT_SETTINGS_ROUTE', '/settings'),
+    'infusionsoft' => [
+        'clientId' => env('INFUSIONSOFT_CLIENT_ID'),
+        'clientSecret' => env('INFUSIONSOFT_SECRET'),
+        'redirectUri' => env(
+            'INFUSIONSOFT_REDIRECT_URL',
+            env('APP_URL', 'http://localhost') . '/infusionsoft/authorize'
+        ),
+    ],
 ];
