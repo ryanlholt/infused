@@ -15,8 +15,9 @@ class CreateInfusionsoftTokensTable extends Migration
     {
         Schema::create('infusionsoft_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('infusionsoft_app_id', 30);
+            $table->foreignId('infusionsoft_account_id')
+                ->constrained('infusionsoft_accounts')
+                ->onDelete('cascade');
             $table->string('access_token');
             $table->string('refresh_token');
             $table->string('token_type');

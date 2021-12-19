@@ -14,12 +14,32 @@ class CreateInfusionsoftContactsTable extends Migration
     public function up()
     {
         Schema::create('infusionsoft_contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('infusionsoft_app_id', 30);
-            $table->unsignedInteger('infusionsoft_id');
-            $table->string('email')->nullable();
-            $table->string('given_name')->nullable();
+            $table->unsignedBigInteger('id')->unique();
+            $table->foreignId('infusionsoft_account_id')
+                ->constrained('infusionsoft_accounts')
+                ->onDelete('cascade');
+            $table->json('addresses');
+            $table->string('anniversary_date');
+            $table->string('birth_date');
+            $table->json('company');
+            $table->string('create_time');
+            $table->json('custom_fields');
+            $table->json('email_addresses');
             $table->string('family_name')->nullable();
+            $table->json('fax_numbers');
+            $table->string('given_name')->nullable();
+            $table->string('leadsource_id')->nullable();
+            $table->json('links');
+            $table->string('middle_name')->nullable();
+            $table->string('owner_id')->nullable();
+            $table->json('phone_numbers');
+            $table->string('referral_code')->nullable();
+            $table->string('score_value')->nullable();
+            $table->json('social_accounts');
+            $table->json('tag_ids');
+            $table->string('time_zone')->nullable();
+            $table->string('update_time');
+            $table->string('website')->nullable();
             $table->json('raw_contact_data');
             $table->timestamps();
         });
